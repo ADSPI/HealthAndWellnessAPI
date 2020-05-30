@@ -23,9 +23,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_2gz*!3dv3ib09c6d2+)loqipq1xo94og*t4vn1-*%*y_1((lz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'api-health-wellness.herokuapp.com'
+]
 
 
 # Application definition
@@ -78,8 +82,13 @@ WSGI_APPLICATION = 'hwapi.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'den1.mysql2.gear.host',
+        'PORT': '3306',
+        'NAME': 'healthwellnessdb',
+        'USER': 'healthwellnessdb',
+        'PASSWORD': 'Aj00445-~aFJ',
+        'OPTIONS': {}
     }
 }
 
