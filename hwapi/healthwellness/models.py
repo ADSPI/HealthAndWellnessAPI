@@ -15,7 +15,7 @@ class DoctorSpecialty(models.Model):
 
 class Doctor(models.Model):
 
-    crm = models.CharField(primary_key=True, db_column='crm')
+    crm = models.CharField(primary_key=True, db_column='crm', max_length=7)
     name = models.CharField(max_length=50, db_column='nome_med')
     contact = models.CharField(max_length=14, db_column='contato_med')
     doctor_specialty = models.ForeignKey(DoctorSpecialty, db_column='id_espec', on_delete=models.PROTECT)
@@ -28,7 +28,7 @@ class Doctor(models.Model):
 class Patient(models.Model):
 
     id = models.AutoField(primary_key=True, db_column='id_paciente')
-    name = models.CharField(primary_key=True, db_column='nome_pac')
+    name = models.CharField(max_length=50, db_column='nome_pac')
     email = models.CharField(max_length=40, db_column='email_pac')
     birth_date = models.DateField(db_column='data_nasc')
     contact = models.CharField(max_length=14, db_column='contato_pac')
