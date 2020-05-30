@@ -2,4 +2,5 @@ from django.apps import AppConfig
 
 
 class HealthwellnessConfig(AppConfig):
-    name = 'healthwellness'
+    name = 'hwapi.healthwellness'
+    label = 'hw.healthwellness'

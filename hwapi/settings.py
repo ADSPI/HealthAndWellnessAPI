@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hwapi.auth',
-    'hwapi.healthwellness',
+    'hwapi.auth.apps.AuthConfig',
+    'hwapi.healthwellness.apps.HealthwellnessConfig',
     'rest_framework'
 ]
 
