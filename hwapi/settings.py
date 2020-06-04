@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import firebase_admin
+from firebase_admin import credentials
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_2gz*!3dv3ib09c6d2+)loqipq1xo94og*t4vn1-*%*y_1((lz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -31,11 +33,14 @@ ALLOWED_HOSTS = [
     'api-health-wellness.herokuapp.com'
 ]
 
+cred = credentials.Certificate("hwapi/config/creds.json")
+
+firebase_admin.initialize_app(cred)
+
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -48,14 +53,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'hwapi.middlewares.AccessMiddleware'
 ]
 
 ROOT_URLCONF = 'hwapi.urls'
@@ -124,12 +125,14 @@ CORS_ALLOW_HEADERS = [
     'origin',
     'user-agent',
     'x-csrftoken',
-    'x-requested-with'
+    'x-requested-with',
+    'accessToken',
+    'refreshToken'
 ]
 
 CORS_EXPOSE_HEADERS = [
-    'Core-Refresh',
-    'Core-Token'
+    'refresh-token',
+    'access-token'
 ]
 
 
