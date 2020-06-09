@@ -101,3 +101,10 @@ class FirebaseController:
             raise error
         finally:
             return result
+
+    @staticmethod
+    def delete_user(uid):
+        try:
+            auth.delete_user(uid)
+        except Exception as error:
+            raise error

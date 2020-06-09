@@ -12,6 +12,7 @@ class AccessMiddleware:
             '/auth/authenticate',
             '/auth/resetpassword',
             '/auth/renew',
+            '/hw/patient-auth'
         ]
 
     def __call__(self, request):
