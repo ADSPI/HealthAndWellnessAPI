@@ -30,7 +30,8 @@ DEBUG = False
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    'api-health-wellness.herokuapp.com'
+    'localhost:3000',
+    'client-health-wellness.herokuapp.com'
 ]
 
 cred = credentials.Certificate("hwapi/config/creds.json")
