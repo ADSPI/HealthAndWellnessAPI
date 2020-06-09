@@ -27,13 +27,7 @@ SECRET_KEY = '_2gz*!3dv3ib09c6d2+)loqipq1xo94og*t4vn1-*%*y_1((lz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    'localhost:3000',
-    'client-health-wellness.herokuapp.com',
-    'herokuapp.com'
-]
+ALLOWED_HOSTS = ['*']
 
 cred = credentials.Certificate("hwapi/config/creds.json")
 
