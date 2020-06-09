@@ -31,7 +31,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     'localhost:3000',
-    'client-health-wellness.herokuapp.com'
+    'client-health-wellness.herokuapp.com',
+    'herokuapp.com'
 ]
 
 cred = credentials.Certificate("hwapi/config/creds.json")
@@ -49,8 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hwapi.auth.apps.AuthConfig',
     'hwapi.healthwellness.apps.HealthwellnessConfig',
-    'corsheaders',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
