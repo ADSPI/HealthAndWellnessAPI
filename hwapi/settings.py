@@ -49,10 +49,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hwapi.auth.apps.AuthConfig',
     'hwapi.healthwellness.apps.HealthwellnessConfig',
+    'corsheaders',
     'rest_framework'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'hwapi.middlewares.AccessMiddleware'
