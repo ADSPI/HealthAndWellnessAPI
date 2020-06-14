@@ -54,6 +54,14 @@ class PatientTemporaryToken(GenericAPIView):
     @staticmethod
     def get(request):
         try:
-            return AppResponse.get_success(data='')
+            uid = request.uid
+
+            custom_token = FirebaseController.create_custom_token(uid)
+
+            result = {
+                'custom_token': custom_token.decode('utf-8')
+            }
+
+            return AppResponse.get_success(data=result)
         except Exception as e:
             return AppResponse.get_error(str(e))

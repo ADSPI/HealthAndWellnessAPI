@@ -106,5 +106,12 @@ class FirebaseController:
     def delete_user(uid):
         try:
             auth.delete_user(uid)
-        except Exception as error:
-            raise error
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def create_custom_token(uid):
+        try:
+            return auth.create_custom_token(uid)
+        except Exception as e:
+            raise e
