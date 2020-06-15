@@ -28,7 +28,7 @@ class FirebaseController:
     @staticmethod
     def validate_request(request):
         try:
-            token = request.META['HTTP_ACCESSTOKEN']
+            token = request.META['HTTP_ACCESS_TOKEN']
             return FirebaseController.get_uid_from_token(token)
         except Exception:
             raise ForbiddenException

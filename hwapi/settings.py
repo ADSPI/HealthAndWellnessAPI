@@ -119,8 +119,8 @@ CORS_ALLOW_HEADERS = [
     'origin',
     'authorization',
     'x-csrftoken'
-    'accessToken',
-    'refreshToken'
+    'access-token',
+    'refresh-token'
 ]
 
 CORS_EXPOSE_HEADERS = [

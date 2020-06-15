@@ -24,7 +24,7 @@ class AccessMiddleware:
             path = request.path
 
             if path not in self.not_protected_routes:
-                refresh_token = request.META.get('HTTP_REFRESHTOKEN', None)
+                refresh_token = request.META.get('HTTP_REFRESH_TOKEN', None)
                 renewed_tokens = FirebaseController.refresh_id_token(refresh_token)
 
                 response['refresh-token'] = renewed_tokens['refresh_token']
