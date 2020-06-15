@@ -2,6 +2,7 @@ from rest_framework.generics import GenericAPIView
 from ...utils.controllers import AppResponse, PatientController, DateController
 from ...auth.controllers.firebase import FirebaseController
 from ..serializers import PatientSerializer
+from ..models import Patient
 
 
 class PatientAuthView(GenericAPIView):
@@ -65,3 +66,50 @@ class PatientTemporaryToken(GenericAPIView):
             return AppResponse.get_success(data=result)
         except Exception as e:
             return AppResponse.get_error(str(e))
+
+
+class PatientDetailView(GenericAPIView):
+
+    @staticmethod
+    def get(request, id_patient):
+        try:
+            uid = request.uid
+            patient_obj = PatientController.get_patient_by_uid(uid)
+            if patient_obj.id != id_patient:
+                return AppResponse.get_unauthorized()
+
+            patient_s = PatientSerializer(patient_obj, many=False)
+
+            result = patient_s.data
+            result['birth_date'] = DateController.format_date_to_local(result['birth_date'])
+
+            return AppResponse.get_success(data=result)
+        except Exception as e:
+            return AppResponse.get_error(reason=str(e))
+
+    @staticmethod
+    def put(request, id_patient):
+        try:
+            uid = request.uid
+            body = request.data
+
+            patient_obj = PatientController.get_patient_by_uid(uid)
+            if patient_obj.id != id_patient:
+                return AppResponse.get_unauthorized()
+
+            body['uid'] = uid
+            body['email'] = patient_obj.email
+            body['birth_date'] = DateController.format_date_to_iso(body['birth_date'])
+            body['id'] = id_patient
+
+            patient_s = PatientSerializer(patient_obj, data=body, many=False)
+            patient_s.is_valid(raise_exception=True)
+            patient_s.save()
+
+            result = patient_s.data
+            result['birth_date'] = DateController.format_date_to_local(result['birth_date'])
+
+            return AppResponse.get_success(data=result)
+
+        except Exception as e:
+            return AppResponse.get_error(reason=str(e))
