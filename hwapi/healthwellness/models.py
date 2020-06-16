@@ -61,8 +61,8 @@ class MedicalExam(models.Model):
     file_path = models.CharField(max_length=100, db_column='path_file_exame')
     creation_date = models.DateField(db_column='data_criacao')
     name = models.CharField(max_length=50, db_column='nome_exame')
-    pacient = models.ForeignKey(Patient, on_delete=models.CASCADE, db_column='id_paciente')
-    appointment = models.ForeignKey(Appointment, on_delete=models.DO_NOTHING, db_column='id_consulta')
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, db_column='id_paciente')
+    appointment = models.ForeignKey(Appointment, on_delete=models.DO_NOTHING, db_column='id_consulta', null=True)
 
     class Meta:
         managed = True
