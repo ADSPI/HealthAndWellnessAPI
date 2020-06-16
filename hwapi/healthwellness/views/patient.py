@@ -45,7 +45,10 @@ class PatientView(GenericAPIView):
             patient_obj = PatientController.get_patient_by_uid(uid)
             patient_s = PatientSerializer(patient_obj, many=False)
 
-            return AppResponse.get_success(data=patient_s.data)
+            result = patient_s.data
+            result['birth_date'] = DateController.format_date_to_local(result['birth_date'])
+
+            return AppResponse.get_success(data=result)
         except Exception as e:
             return AppResponse.get_error(reason=str(e))
 
@@ -69,23 +72,6 @@ class PatientTemporaryToken(GenericAPIView):
 
 
 class PatientDetailView(GenericAPIView):
-
-    @staticmethod
-    def get(request, id_patient):
-        try:
-            uid = request.uid
-            patient_obj = PatientController.get_patient_by_uid(uid)
-            if patient_obj.id != id_patient:
-                return AppResponse.get_unauthorized()
-
-            patient_s = PatientSerializer(patient_obj, many=False)
-
-            result = patient_s.data
-            result['birth_date'] = DateController.format_date_to_local(result['birth_date'])
-
-            return AppResponse.get_success(data=result)
-        except Exception as e:
-            return AppResponse.get_error(reason=str(e))
 
     @staticmethod
     def put(request, id_patient):
