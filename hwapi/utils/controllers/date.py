@@ -5,9 +5,11 @@ class DateController:
 
     @staticmethod
     def format_date_to_iso(date_str: str):
-        date_formatted = datetime.strptime(date_str, '%d/%m/%Y').date()
-
-        return date_formatted
+        try:
+            date_formatted = datetime.strptime(date_str, '%d/%m/%Y').date()
+            return date_formatted
+        except:
+            return date_str
 
     @staticmethod
     def format_date_to_local(date_str):
