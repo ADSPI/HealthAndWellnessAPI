@@ -58,7 +58,7 @@ class Appointment(models.Model):
 class MedicalExam(models.Model):
 
     id = models.AutoField(primary_key=True, db_column='id_exame')
-    file_path = models.CharField(max_length=100, db_column='path_file_exame')
+    file_path = models.CharField(max_length=100, db_column='path_file')
     creation_date = models.DateField(db_column='data_criacao')
     name = models.CharField(max_length=50, db_column='nome_exame')
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, db_column='id_paciente')

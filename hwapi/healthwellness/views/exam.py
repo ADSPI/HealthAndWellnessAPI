@@ -1,7 +1,7 @@
 from rest_framework.generics import GenericAPIView
 from ..models import MedicalExam
 from ...utils.controllers import PatientController, AppResponse, DateController
-from ..serializers import MedicalExamDoctorSerializer, MedicalExamSerializer
+from ..serializers import MedicalExamSerializer
 
 
 class MedicalExamView(GenericAPIView):
@@ -13,8 +13,8 @@ class MedicalExamView(GenericAPIView):
 
             patient_obj = PatientController.get_patient_by_uid(uid)
 
-            exams_obj = MedicalExam.objects.select_related('doctor').filter(patient=patient_obj.id)
-            exams_s = MedicalExamDoctorSerializer(exams_obj, many=True)
+            exams_obj = MedicalExam.objects.filter(patient=patient_obj.id)
+            exams_s = MedicalExamSerializer(exams_obj, many=True)
 
             data = exams_s.data
 
@@ -60,7 +60,7 @@ class MedicalExamDetailView(GenericAPIView):
             if exam_obj.patient.id != id_patient:
                 return AppResponse.get_unauthorized()
 
-            exam_s = MedicalExamDoctorSerializer(exam_obj, many=False)
+            exam_s = MedicalExamSerializer(exam_obj, many=False)
             result = exam_s.data
             result['creation_date'] = DateController.format_date_to_local(result['creation_date'])
 
