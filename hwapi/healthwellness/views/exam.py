@@ -79,6 +79,8 @@ class MedicalExamDetailView(GenericAPIView):
             if exam_obj.patient.id != id_patient:
                 return AppResponse.get_unauthorized()
 
+            body['creation_date'] = DateController.format_date_to_iso(body['creation_date'])
+
             exam_s = MedicalExamSerializer(exam_obj, data=body, many=False)
             exam_s.is_valid(raise_exception=True)
             exam_s.save()
